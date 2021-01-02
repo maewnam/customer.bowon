@@ -1,0 +1,12 @@
+{
+	"main" : {
+		"group" : "Group",
+		"user" : "User"
+	},
+	"user" : {
+		"user" : "User",
+		"username" : "Username",
+		"user" : "user"
+	},
+	"group" : "group"
+}
