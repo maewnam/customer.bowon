@@ -51,7 +51,6 @@ class engine{
 		}
 		$s .= '	));'."\n";
 		$s .= '?>'."\n";
-		$s .= '<script src="apps/'.$this->param['appname'].'/include/interface.js"></script>'."\n";
 		$s .= '<?php'."\n";
 		$s .= '	$panel->PageBreadcrumb();'."\n";
 		$s .= '?>'."\n";
@@ -63,9 +62,18 @@ class engine{
 		$s .= '	</div>'."\n";
 		$s .= '</div>'."\n";
 		$s .= '<script>'."\n";
-		$s .= '	loadScript("js/datagrid/datatables/datatables.bundle.js", function(){'."\n";
-		$s .= '	loadScript("js/datagrid/datatables/datatables.export.js", function(){'."\n";
-		$s .= '	loadScript("js/dependency/moment/moment.js",function(){'."\n";
+		$s .= '	var plugins = ['."\n";
+		$s .= '		\'apps/'.$this->param['appname'].'/include/interface.js\','."\n";
+		$s .= '		\'plugins/datatables/dataTables.bootstrap4.min.css\','."\n";
+		$s .= '		\'plugins/datatables/responsive.bootstrap4.min.css\','."\n";
+		$s .= '		\'plugins/datatables/jquery.dataTables.bootstrap4.responsive.min.js\','."\n";
+		$s .= '		\'plugins/select2/css/select2.min.css\','."\n";
+		$s .= '		\'plugins/select2/js/select2.min.js\','."\n";
+		$s .= '		\'plugins/moment/moment.min.js\''."\n";
+		$s .= '	];'."\n";
+		
+		$s .= '	App.loadPlugins(plugins, null).then(() => {'."\n";
+		$s .= '		App.checkAll()'."\n";
 		$s .= '	<?php'."\n";
 		$s .= '		switch($panel->getView()){'."\n";
 		
@@ -80,10 +88,9 @@ class engine{
 			$s .= '				break;'."\n";
 			
 		}
-		
 		$s .= '}'."\n";
 		$s .= '	?>'."\n";
-		$s .= '	});});});'."\n";
+		$s .= '	}).then(() => App.stopLoading())'."\n";
 		$s .= '</script>'."\n";
 		
 		fwrite($file, $s);
@@ -126,20 +133,6 @@ class engine{
 			$s .= '$("#'.$tablename.'").data( "selected", [] );'."\n";
 			$s .= '$("#'.$tablename.'").DataTable({'."\n";
 			$s .= '	responsive: true,'."\n";
-			$s .= '	dom: fn.ui.datatable.dom.default,'."\n";
-			$s .= '	buttons: [{'."\n";
-			$s .= '		text: "Add",'."\n";
-			$s .= '		className: "btn-primary btn-sm",'."\n";
-			$s .= '		action : function(){'."\n";
-			$s .= '			fn.app.'.$this->param['appname'].'.'.$subapp.'.dialog_add()'."\n";
-			$s .= '		}'."\n";
-			$s .= '	},{'."\n";
-			$s .= '		text: "Remove",'."\n";
-			$s .= '		className: "btn-danger btn-sm",'."\n";
-			$s .= '		action : function(){'."\n";
-			$s .= '			fn.app.'.$this->param['appname'].'.'.$subapp.'.dialog_remove()'."\n";
-			$s .= '		}'."\n";
-			$s .= '	}],'."\n";
 			$s .= '	"bStateSave": true,'."\n";
 			$s .= '	"autoWidth" : true,'."\n";
 			$s .= '	"processing": true,'."\n";
@@ -159,8 +152,8 @@ class engine{
 			$s .= '		}'."\n";
 			$s .= '		$("td", row).eq(0).html(fn.ui.checkbox("chk_'.$subapp.'",data[0],selected));'."\n";
 			$s .= '		s = \'\';'."\n";
-			
-			$s .= '		s += fn.ui.button("btn btn-xs btn-default","fal fa-pencil","fn.app.'.$this->param['appname'].'.'.$subapp.'.dialog_edit("+data[0]+")");'."\n";
+
+			$s .= '		s += fn.ui.button("btn btn-xs btn-outline-dark","far fa-pen","fn.app.'.$this->param['appname'].'.'.$subapp.'.dialog_edit("+data[0]+")");'."\n";
 			$s .= '		$("td", row).eq(2).html(s);'."\n";
 			$s .= '	}'."\n";
 			$s .= '});'."\n";
@@ -196,6 +189,14 @@ class engine{
 			$s .= '		},"json");'."\n";
 			$s .= '		return false;'."\n";
 			$s .= '	};'."\n";
+			
+			$s .= '	$(".btn-area").append(fn.ui.button({'."\n";
+			$s .= '		class_name : "btn btn-light has-icon",'."\n";
+			$s .= '		icon_type : "material",'."\n";
+			$s .= '		icon : "add_circle_outline",'."\n";
+			$s .= '		onclick : "fn.app.'.$this->param['appname'].'.'.$subapp.'.dialog_add()",'."\n";
+			$s .= '		caption : "Add"'."\n";
+			$s .= '	}));'."\n";
 			fwrite($file, $s);
 			fclose($file);
 			
@@ -258,6 +259,13 @@ class engine{
 			$s .= '			$("#dialog_remove_'.$subapp.'").modal("hide");'."\n";
 			$s .= '		});'."\n";
 			$s .= '	};'."\n";
+			$s .= '	$(".btn-area").append(fn.ui.button({'."\n";
+			$s .= '		class_name : "btn btn-light has-icon",'."\n";
+			$s .= '		icon_type : "material",'."\n";
+			$s .= '		icon : "delete",'."\n";
+			$s .= '		onclick : "fn.app.'.$this->param['appname'].'.'.$subapp.'.remove()",'."\n";
+			$s .= '		caption : "Remove"'."\n";
+			$s .= '	}));'."\n";
 			fwrite($file, $s);
 			fclose($file);
 		
@@ -319,6 +327,7 @@ class engine{
 			
 			$file = fopen($this->path."/view/page.".$subapp.".php", "w") or die("Unable to open file!");	
 			$s = '';
+			$s .= '<div class="btn-area btn-group mb-2"></div>';
 			$s .= '<table id="'.$tablename.'" class="table table-striped table-bordered table-hover table-middle" width="100%">'."\n";
 			$s .= '	<thead>'."\n";
 			$s .= '		<tr>'."\n";
@@ -410,7 +419,7 @@ class engine{
 			$s .= '		array("action","btn-default","Save Change","fn.app.'.$this->param['appname'].'.'.$subapp.'.edit()")'."\n";
 			$s .= '	));'."\n";
 			$s .= '	$modal->SetVariable(array('."\n";
-			$s .= '		array("txtID",$'.$subapp.'[\'id\'])'."\n";
+			$s .= '		array("id",$'.$subapp.'[\'id\'])'."\n";
 			$s .= '	));'."\n";
 			$s .= "\n";	
 			$s .= '	$blueprint = array('."\n";
@@ -580,16 +589,16 @@ class engine{
 			$s .= '		));'."\n";
 			$s .= '	}else{'."\n";
 			$s .= '		$data = array('."\n";
-			$s .= '			\'name\' => $_POST[\'txtName\'],'."\n";
+			$s .= '			\'name\' => $_POST[\'name\'],'."\n";
 			$s .= '			\'#updated\' => \'NOW()\','."\n";
 			$s .= '		);'."\n";
 			$s .= "\n";		
-			$s .= '		if($dbc->Update("'.$dbname.'",$data,"id=".$_POST[\'txtID\'])){'."\n";
+			$s .= '		if($dbc->Update("'.$dbname.'",$data,"id=".$_POST[\'id\'])){'."\n";
 			$s .= '			echo json_encode(array('."\n";
 			$s .= '				\'success\'=>true'."\n";
 			$s .= '			));'."\n";
-			$s .= '			$'.$subapp.' = $dbc->GetRecord("'.$dbname.'","*","id=".$_POST[\'txtID\']);'."\n";
-			$s .= '			$os->save_log(0,$_SESSION[\'auth\'][\'user_id\'],"'.$subapp.'-edit",$_POST[\'txtID\'],array("'.$dbname.'" => $'.$subapp.'));'."\n";
+			$s .= '			$'.$subapp.' = $dbc->GetRecord("'.$dbname.'","*","id=".$_POST[\'id\']);'."\n";
+			$s .= '			$os->save_log(0,$_SESSION[\'auth\'][\'user_id\'],"'.$subapp.'-edit",$_POST[\'id\'],array("'.$dbname.'" => $'.$subapp.'));'."\n";
 			$s .= '		}else{'."\n";
 			$s .= '			echo json_encode(array('."\n";
 			$s .= '				\'success\'=>false,'."\n";
@@ -621,7 +630,6 @@ class engine{
 			$s .= '	foreach($_POST[\'items\'] as $item){'."\n";
 			$s .= '		$'.$subapp.' = $dbc->GetRecord("'.$dbname.'","*","id=".$item);'."\n";
 			$s .= '		$dbc->Delete("'.$dbname.'","id=".$item);'."\n";
-			$s .= '		$dbc->Delete("permissions","gid=".$item);'."\n";
 			$s .= '		$os->save_log(0,$_SESSION[\'auth\'][\'user_id\'],"'.$subapp.'-delete",$id,array("'.$dbname.'" => $'.$subapp.'));'."\n";
 			$s .= '	}'."\n";
 			$s .= "\n";	

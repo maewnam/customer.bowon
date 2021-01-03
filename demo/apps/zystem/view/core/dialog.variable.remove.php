@@ -26,7 +26,7 @@
 			if($removable){
 				echo '<ul>';
 				foreach($items as $item){
-					$variable = $dbc->GetRecord("variables","*","id=".$item);
+					$variable = $dbc->GetRecord("os_variable","*","id=".$item);
 					echo '<li>'.$variable['id'].' : '.$variable['name'].'</li>';
 				}
 				echo '</ul>';

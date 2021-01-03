@@ -12,7 +12,7 @@
 	$dbc->Connect();
 	
 	$os = new oceanos($dbc);
-	$variable = $dbc->GetRecord("variable","*","id=".$_POST['id']);
+	$variable = $dbc->GetRecord("os_variable","*","id=".$_POST['id']);
 
 	$modal = new imodal($dbc,$os->auth);
 	//$modal->setParam($_POST);

@@ -334,6 +334,28 @@
 					}
 					echo '</select>';
 					break;
+				case "comboboxdatabank":
+					$readonly = "";if(isset($control['readonly'])){$readonly = ' readonly="'.$control['readonly'].'"';}
+					echo '<select name="'.$control['name'].'" class="form-control'.$class.'"'.$readonly.'>';
+					if(isset($control['default'])){
+						if(is_array($control['default'])){
+							echo '<option value="'.$control['default']['value'].'">'.$control['default']['name'].'</option>';
+						}else{
+							echo '<option>'.$control['default'].'</option>';
+						}
+					}
+					$record = $this->dbc->GetRecord("os_variable","value","name='".$control['source']."'");
+					$manyline = json_decode($record['value'],true);
+					//var_dump($manyline);
+					foreach($manyline as $line){
+						$selected = "";
+						if(isset($control['value'])){
+							$selected = $control['value']==$line?" selected":"";
+						}
+						echo '<option '.$selected.'>'.$line.'</option>';
+					}
+					echo '</select>';
+					break;
 				case "password":
 					$value = "";
 					if(isset($control['value'])){

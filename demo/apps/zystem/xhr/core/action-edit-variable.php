@@ -11,7 +11,7 @@
 	$dbc->Connect();
 	$os = new oceanos($dbc);
 	
-	if($dbc->HasRecord("variable","name = '".$_POST['name']."' AND id != ".$_POST['id'])){
+	if($dbc->HasRecord("os_variable","name = '".$_POST['name']."' AND id != ".$_POST['id'])){
 		echo json_encode(array(
 			'success'=>false,
 			'msg'=>'Variable Name is already exist.'
@@ -23,11 +23,11 @@
 			'#updated' => 'NOW()'
 		);
 		
-		if($dbc->Update("variable",$data,"id=".$_POST['id'])){
+		if($dbc->Update("os_variable",$data,"id=".$_POST['id'])){
 			echo json_encode(array(
 				'success'=>true
 			));
-			$variable = $dbc->GetRecord("variable","*","id=".$_POST['id']);
+			$variable = $dbc->GetRecord("os_variable","*","id=".$_POST['id']);
 			$os->save_log(0,$_SESSION['auth']['user_id'],"variable-edit",$_POST['id'],array("variables" => $variable));
 		}else{
 			echo json_encode(array(
