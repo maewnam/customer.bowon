@@ -1,20 +1,6 @@
 $("#tblGroup").data( "selected", [] );
 $("#tblGroup").DataTable({
 	responsive: true,
-	dom: fn.ui.datatable.dom.default,
-	buttons: [{
-		text: "Add",
-		className: "btn-primary btn-sm",
-		action : function(){
-			fn.app.supplier.group.dialog_add()
-		}
-	},{
-		text: "Remove",
-		className: "btn-danger btn-sm",
-		action : function(){
-			fn.app.supplier.group.dialog_remove()
-		}
-	}],
 	"bStateSave": true,
 	"autoWidth" : true,
 	"processing": true,
@@ -33,7 +19,7 @@ $("#tblGroup").DataTable({
 		}
 		$("td", row).eq(0).html(fn.ui.checkbox("chk_group",data[0],selected));
 		s = '';
-		s += fn.ui.button("btn btn-xs btn-default","fal fa-pencil","fn.app.supplier.group.dialog_edit("+data[0]+")");
+		s += fn.ui.button("btn btn-xs btn-outline-dark","far fa-pen","fn.app.supplier.group.dialog_edit("+data[0]+")");
 		$("td", row).eq(2).html(s);
 	}
 });

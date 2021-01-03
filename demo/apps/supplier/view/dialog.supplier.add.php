@@ -29,6 +29,24 @@
 				"caption" => "Name",
 				"placeholder" => "Supplier Name"
 			)
+		),array(
+			array(
+				"type" => "textarea",
+				"name" => "comment",
+				"caption" => "Comment",
+				"placeholder" => "Supplier Comment"
+			)
+		),array(
+			array(
+				"type" => "comboboxdb",
+				"name" => "gid",
+				"caption" => "Group",
+				"source" => array(
+					"table" => "bs_supplier_groups",
+					"name" => "name",
+					"value" => "id"
+				)
+			)
 		)
 	);
 

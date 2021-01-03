@@ -11,12 +11,12 @@
 	$os = new oceanos($dbc);
 	$panel = new ipanel($dbc,$os->auth);
 
-	$panel->setApp("supplier","Supplier");
-	$panel->setView(isset($_GET['view'])?$_GET['view']:'supplier');
+	$panel->setApp("employee","Employee");
+	$panel->setView(isset($_GET['view'])?$_GET['view']:'employee');
 
 	$panel->setMeta(array(
-		array("group","Group","far fa-user"),
-		array("supplier","Supplier","far fa-user"),
+		array("department","Department","far fa-user"),
+		array("employee","employee","far fa-user"),
 	));
 ?>
 <?php
@@ -31,7 +31,7 @@
 </div>
 <script>
 	var plugins = [
-		'apps/supplier/include/interface.js',
+		'apps/employee/include/interface.js',
 		'plugins/datatables/dataTables.bootstrap4.min.css',
 		'plugins/datatables/responsive.bootstrap4.min.css',
 		'plugins/datatables/jquery.dataTables.bootstrap4.responsive.min.js',
@@ -43,17 +43,17 @@
 		App.checkAll()
 	<?php
 		switch($panel->getView()){
-			case "group":
-				include "control/controller.group.view.js";
-				if($os->allow("supplier","remove"))include "control/controller.group.remove.js";
-				if($os->allow("supplier","add"))include "control/controller.group.add.js";
-				if($os->allow("supplier","edit"))include "control/controller.group.edit.js";
+			case "department":
+				include "control/controller.department.view.js";
+				if($os->allow("employee","remove"))include "control/controller.department.remove.js";
+				if($os->allow("employee","add"))include "control/controller.department.add.js";
+				if($os->allow("employee","edit"))include "control/controller.department.edit.js";
 				break;
-			case "supplier":
-				include "control/controller.supplier.view.js";
-				if($os->allow("supplier","remove"))include "control/controller.supplier.remove.js";
-				if($os->allow("supplier","add"))include "control/controller.supplier.add.js";
-				if($os->allow("supplier","edit"))include "control/controller.supplier.edit.js";
+			case "employee":
+				include "control/controller.employee.view.js";
+				if($os->allow("employee","remove"))include "control/controller.employee.remove.js";
+				if($os->allow("employee","add"))include "control/controller.employee.add.js";
+				if($os->allow("employee","edit"))include "control/controller.employee.edit.js";
 				break;
 }
 	?>

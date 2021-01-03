@@ -11,31 +11,26 @@
 	$dbc->Connect();
 	$os = new oceanos($dbc);
 
-
-	if($dbc->HasRecord("bs_supplier_groups","name = '".$_POST['name']."'")){
+	if($dbc->HasRecord("bs_departments","name = '".$_POST['name']."'")){
 		echo json_encode(array(
 			'success'=>false,
-			'msg'=>'Group Name is already exist.'
+			'msg'=>'Department Name is already exist.'
 		));
 	}else{
 		$data = array(
-			'#id' => "DEFAULT",
 			'name' => $_POST['name']
 		);
 
-		if($dbc->Insert("bs_supplier_groups",$data)){
-			$group_id = $dbc->GetID();
+		if($dbc->Update("bs_departments",$data,"id=".$_POST['id'])){
 			echo json_encode(array(
-				'success'=>true,
-				'msg'=> $group_id
+				'success'=>true
 			));
-
-			$group = $dbc->GetRecord("bs_supplier_groups","*","id=".$group_id);
-			$os->save_log(0,$_SESSION['auth']['user_id'],"group-add",$group_id,array("bs_supplier_groups" => $group));
+			$department = $dbc->GetRecord("bs_departments","*","id=".$_POST['id']);
+			$os->save_log(0,$_SESSION['auth']['user_id'],"department-edit",$_POST['id'],array("bs_departments" => $department));
 		}else{
 			echo json_encode(array(
 				'success'=>false,
-				'msg' => "Insert Error"
+				'msg' => "No Change"
 			));
 		}
 	}

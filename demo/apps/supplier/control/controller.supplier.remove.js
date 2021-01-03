@@ -26,3 +26,10 @@
 			$("#dialog_remove_supplier").modal("hide");
 		});
 	};
+	$(".btn-area").append(fn.ui.button({
+		class_name : "btn btn-light has-icon",
+		icon_type : "material",
+		icon : "delete",
+		onclick : "fn.app.supplier.supplier.dialog_remove()",
+		caption : "Remove"
+	}));

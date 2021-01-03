@@ -1,4 +1,4 @@
-<table id="tblSupplier" class="table table-striped table-bordered table-hover table-middle" width="100%">
+<div class="btn-area btn-group mb-2"></div><table id="tblSupplier" class="table table-striped table-bordered table-hover table-middle" width="100%">
 	<thead>
 		<tr>
 			<th class="text-center hidden-xs">

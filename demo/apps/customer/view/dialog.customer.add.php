@@ -29,6 +29,19 @@
 				"caption" => "ชื่อลุกค้า",
 				"flex" => 10
 			)
+		),array(
+			
+			array(
+				"type" => "comboboxdb",
+				"name" => "gid",
+				"caption" => "Group",
+				"source" => array(
+					"table" => "bs_customer_groups",
+					"name" => "name",
+					"value" => "id"
+				),
+				"flex" => 5
+			)
 		),
 		array(
 			"type" => "tablist",
@@ -49,7 +62,7 @@
 						),array(
 							array(
 								"name" => "phone",
-								"caption" => "หมายเลขโทรศัพท์",
+								"caption" => "โทรศัพท์",
 								"flex" => 4,
 								"placeholder" => "Phone Number"
 							),array(
@@ -101,6 +114,18 @@
 									"7%"
 								),
 								"caption" => "ภาษีมูลค่าเพิ่ม"
+							)
+						),array(
+							array(
+								"type" => "comboboxdatabank",
+								"source" => "db_payment",
+								"name" => "default_payment",
+								"caption" => "การจ่ายเงิน",
+								"default" => array(
+									"value" => "none",
+									"name" => "ไม่ระบุ"
+								),
+								"flex" => 6
 							)
 						)
 					)
@@ -161,158 +186,32 @@
 						),
 						array(
 							array(
-								"name" => "info_c",
-								"caption" => "ติดต่อมาจาก",
-								"placeholder" => ""
+								"type" => "comboboxdb",
+								"name" => "sales",
+								"caption" => "Sale",
+								"source" => array(
+									"table" => "bs_employees",
+									"name" => "fullname",
+									"value" => "id"
+								),
+								"default" => array(
+									"value" => "NULL",
+									"name" => "Not Selected"
+								)
 							)
 						),
 						array(
 							array(
-								"name" => "",
-								"caption" => "SALE Rep",
-								"placeholder" => ""
-							)
-						),
-						array(
-							array(
-								"name" => "",
+								"name" => "info_purchase",
 								"caption" => "Volume Buy ",
 								"placeholder" => ""
 							)
 						),
 						array(
 							array(
-								"name" => "",
+								"name" => "info_competitor",
 								"caption" => "competitor",
 								"placeholder" => ""
-							)
-						)
-					)
-				),
-				array(
-					"type" => "tab",
-					"group" => "group_c",
-					"name" => "Files",
-					"items" => array(
-						array(
-							array(
-								"name" => "",
-								"caption" => "ภพ.20",
-								"type" => "file"
-							)
-						),array(
-							array(
-								"name" => "",
-								"caption" => "หนังสือรับรอง หน้า 1",
-								"type" => "file",
-							)
-						),array(
-							array(
-								"name" => "",
-								"caption" => "หนังสือรับรอง หน้า 2",
-								"type" => "file",
-							)
-						),array(
-							array(
-								"name" => "",
-								"caption" => "หนังสือรับรอง หน้า 3",
-								"type" => "file",
-							)
-						),array(
-							array(
-								"name" => "",
-								"caption" => "ภพ.01.5 (vat 0)",
-								"type" => "file",
-							)
-						),array(
-							array(
-								"name" => "",
-								"caption" => "ภพ.01.5 หน้า 2",
-								"type" => "file",
-							)
-						),array(
-							array(
-								"name" => "",
-								"caption" => "แผนที่",
-								"type" => "file",
-							)
-						),array(
-							array(
-								"name" => "",
-								"caption" => "ภพ.09 (เปลี่ยนชื่อ) น.1",
-								"type" => "file",
-							)
-						),array(
-							array(
-								"name" => "",
-								"caption" => "ภพ.09 หน้า 2",
-								"type" => "file",
-							)
-						),array(
-							array(
-								"name" => "",
-								"caption" => "ภพ.09 หน้า 3",
-								"type" => "file",
-							)
-						),array(
-							array(
-								"name" => "",
-								"caption" => "สมาคม หน้า 1",
-								"type" => "file",
-							)
-						),array(
-							array(
-								"name" => "",
-								"caption" => "สมาคม หน้า 2",
-								"type" => "file",
-							)
-						),array(
-							array(
-								"name" => "",
-								"caption" => "สมาคม หน้า 3",
-								"type" => "file",
-							)
-						),array(
-							array(
-								"name" => "",
-								"caption" => "หนังสือรับยกเว้น หน้า 1",
-								"type" => "file",
-							)
-						),array(
-							array(
-								"name" => "",
-								"caption" => "หนังสือรับยกเว้น หน้า 2",
-								"type" => "file",
-							)
-						),array(
-							array(
-								"name" => "",
-								"caption" => "เขตการค้าเสรี หน้า 1",
-								"type" => "file",
-							)
-						),array(
-							array(
-								"name" => "",
-								"caption" => "เขตการค้าเสรี หน้า 2",
-								"type" => "file",
-							)
-						),array(
-							array(
-								"name" => "",
-								"caption" => "เขตการค้าเสรี หน้า 3",
-								"type" => "file",
-							)
-						),array(
-							array(
-								"name" => "",
-								"caption" => "อื่นๆ 1",
-								"type" => "file",
-							)
-						),array(
-							array(
-								"name" => "",
-								"caption" => "อื่นๆ 2",
-								"type" => "file",
 							)
 						)
 					)

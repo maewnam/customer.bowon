@@ -12,9 +12,9 @@
 	$os = new oceanos($dbc);
 
 	foreach($_POST['items'] as $item){
-		$group = $dbc->GetRecord("bs_supplier_groups","*","id=".$item);
-		$dbc->Delete("bs_supplier_groups","id=".$item);
-		$os->save_log(0,$_SESSION['auth']['user_id'],"group-delete",$id,array("bs_supplier_groups" => $group));
+		$department = $dbc->GetRecord("bs_departments","*","id=".$item);
+		$dbc->Delete("bs_departments","id=".$item);
+		$os->save_log(0,$_SESSION['auth']['user_id'],"department-delete",$id,array("bs_departments" => $department));
 	}
 
 	$dbc->Close();

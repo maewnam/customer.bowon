@@ -11,23 +11,42 @@
 	$dbc->Connect();
 	$os = new oceanos($dbc);
 
-	if($dbc->HasRecord("bs_bustomer_customers","name = '".$_POST['name']."'")){
+	if($dbc->HasRecord("bs_customers","name = '".$_POST['name']."' AND id !=".$_POST['id'])){
 		echo json_encode(array(
 			'success'=>false,
 			'msg'=>'Customer Name is already exist.'
 		));
 	}else{
 		$data = array(
-			'name' => $_POST['txtName'],
-			'#updated' => 'NOW()',
+			'name' => addslashes($_POST['name']),
+			'shipping_address' => addslashes($_POST['shipping_address']),
+			'billing_address' => addslashes($_POST['billing_address']),
+			'gid' => $_POST['gid'],
+			'contact' => $_POST['contact'],
+			'email' => $_POST['email'],
+			'fax' => $_POST['fax'],
+			'phone' => $_POST['phone'],
+			'#sales' => $_POST['sales'],
+			'info_need' => addslashes($_POST['info_need']),
+			'info_require' => addslashes($_POST['info_require']),
+			'info_memo' => addslashes($_POST['info_memo']),
+			'info_working_hours' => addslashes($_POST['info_working_hours']),
+			'info_comment' => addslashes($_POST['info_comment']),
+			'info_reference' => addslashes($_POST['info_reference']),
+			'info_competitor' => addslashes($_POST['info_competitor']),
+			'info_purchase' => addslashes($_POST['info_purchase']),
+			'default_payment' => $_POST['default_payment'],
+			'default_bank' => $_POST['default_bank'],
+			'default_vat' => $_POST['default_vat'],
+			'#updated' => 'NOW()'
 		);
 
-		if($dbc->Update("bs_bustomer_customers",$data,"id=".$_POST['txtID'])){
+		if($dbc->Update("bs_customers",$data,"id=".$_POST['id'])){
 			echo json_encode(array(
 				'success'=>true
 			));
-			$customer = $dbc->GetRecord("bs_bustomer_customers","*","id=".$_POST['txtID']);
-			$os->save_log(0,$_SESSION['auth']['user_id'],"customer-edit",$_POST['txtID'],array("bs_bustomer_customers" => $customer));
+			$customer = $dbc->GetRecord("bs_customers","*","id=".$_POST['id']);
+			$os->save_log(0,$_SESSION['auth']['user_id'],"customer-edit",$_POST['id'],array("bs_customers" => $customer));
 		}else{
 			echo json_encode(array(
 				'success'=>false,

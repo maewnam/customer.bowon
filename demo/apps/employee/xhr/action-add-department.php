@@ -12,31 +12,26 @@
 	$os = new oceanos($dbc);
 
 
-	if($dbc->HasRecord("bs_suppliers","name = '".$_POST['name']."'")){
+	if($dbc->HasRecord("bs_departments","name = '".$_POST['name']."'")){
 		echo json_encode(array(
 			'success'=>false,
-			'msg'=>'Supplier Name is already exist.'
+			'msg'=>'Department Name is already exist.'
 		));
 	}else{
 		$data = array(
 			'#id' => "DEFAULT",
-			'name' => $_POST['name'],
-			'#created' => 'NOW()',
-			'#updated' => 'NOW()',
-			'comment' => addslashes($_POST['comment']),
-			'#type' => 1, 
-			'#gid' => $_POST['gid']
+			'name' => $_POST['name']
 		);
 
-		if($dbc->Insert("bs_suppliers",$data)){
-			$supplier_id = $dbc->GetID();
+		if($dbc->Insert("bs_departments",$data)){
+			$department_id = $dbc->GetID();
 			echo json_encode(array(
 				'success'=>true,
-				'msg'=> $supplier_id
+				'msg'=> $department_id
 			));
 
-			$supplier = $dbc->GetRecord("bs_suppliers","*","id=".$supplier_id);
-			$os->save_log(0,$_SESSION['auth']['user_id'],"supplier-add",$supplier_id,array("bs_suppliers" => $supplier));
+			$department = $dbc->GetRecord("bs_departments","*","id=".$department_id);
+			$os->save_log(0,$_SESSION['auth']['user_id'],"department-add",$department_id,array("bs_departments" => $department));
 		}else{
 			echo json_encode(array(
 				'success'=>false,

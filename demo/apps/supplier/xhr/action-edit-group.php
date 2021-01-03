@@ -11,23 +11,22 @@
 	$dbc->Connect();
 	$os = new oceanos($dbc);
 
-	if($dbc->HasRecord("groups","name = '".$_POST['name']."'")){
+	if($dbc->HasRecord("bs_supplier_groups","name = '".$_POST['name']."' AND id !=".$_POST['id'])){
 		echo json_encode(array(
 			'success'=>false,
 			'msg'=>'Group Name is already exist.'
 		));
 	}else{
 		$data = array(
-			'name' => $_POST['txtName'],
-			'#updated' => 'NOW()',
+			'name' => $_POST['name']
 		);
 
-		if($dbc->Update("groups",$data,"id=".$_POST['txtID'])){
+		if($dbc->Update("bs_supplier_groups",$data,"id=".$_POST['id'])){
 			echo json_encode(array(
 				'success'=>true
 			));
-			$group = $dbc->GetRecord("groups","*","id=".$_POST['txtID']);
-			$os->save_log(0,$_SESSION['auth']['user_id'],"group-edit",$_POST['txtID'],array("groups" => $group));
+			$group = $dbc->GetRecord("bs_supplier_groups","*","id=".$_POST['id']);
+			$os->save_log(0,$_SESSION['auth']['user_id'],"group-edit",$_POST['id'],array("bs_supplier_groups" => $group));
 		}else{
 			echo json_encode(array(
 				'success'=>false,

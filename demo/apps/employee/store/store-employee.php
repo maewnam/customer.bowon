@@ -10,13 +10,13 @@
 	$dbc->Connect();
 
 	$columns = array(
-		"id" => "bs_suppliers.id",
-		"name" => "bs_suppliers.name",
+		"id" => "bs_employees.id",
+		"name" => "bs_employees.fullname",
 	);
 
 	$table = array(
 		"index" => "id",
-		"name" => "bs_suppliers",
+		"name" => "bs_employees",
 	);
 
 	$dbc->SetParam($table,$columns,$_GET['order'],$_GET['columns'],$_GET['search']);

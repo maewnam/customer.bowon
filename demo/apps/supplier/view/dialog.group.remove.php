@@ -26,7 +26,7 @@
 			if($removable){
 				echo '<ul>';
 				foreach($items as $item){
-					$group = $dbc->GetRecord("groups","*","id=".$item);
+					$group = $dbc->GetRecord("bs_supplier_groups","*","id=".$item);
 					echo "<li>".$group['id'].' : '.$group['name']."</li>";
 				}
 				echo '</ul>';

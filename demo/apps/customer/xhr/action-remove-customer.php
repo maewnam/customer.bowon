@@ -12,10 +12,9 @@
 	$os = new oceanos($dbc);
 
 	foreach($_POST['items'] as $item){
-		$customer = $dbc->GetRecord("bs_bustomer_customers","*","id=".$item);
-		$dbc->Delete("bs_bustomer_customers","id=".$item);
-		$dbc->Delete("permissions","gid=".$item);
-		$os->save_log(0,$_SESSION['auth']['user_id'],"customer-delete",$id,array("bs_bustomer_customers" => $customer));
+		$customer = $dbc->GetRecord("bs_customers","*","id=".$item);
+		$dbc->Delete("bs_customers","id=".$item);
+		$os->save_log(0,$_SESSION['auth']['user_id'],"customer-delete",$id,array("bs_customers" => $customer));
 	}
 
 	$dbc->Close();

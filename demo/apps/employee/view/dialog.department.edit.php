@@ -12,19 +12,19 @@
 	$dbc->Connect();
 
 	$os = new oceanos($dbc);
-	$group = $dbc->GetRecord("bs_supplier_groups","*","id=".$_POST['id']);
+	$department = $dbc->GetRecord("bs_departments","*","id=".$_POST['id']);
 
 	$modal = new imodal($dbc,$os->auth);
 
-	$modal->setModel("dialog_edit_group","Edit Group");
-	$modal->initiForm("form_editgroup");
+	$modal->setModel("dialog_edit_department","Edit Department");
+	$modal->initiForm("form_editdepartment");
 	$modal->setExtraClass("modal-lg");
 	$modal->setButton(array(
 		array("close","btn-secondary","Dismiss"),
-		array("action","btn-default","Save Change","fn.app.supplier.group.edit()")
+		array("action","btn-default","Save Change","fn.app.employee.department.edit()")
 	));
 	$modal->SetVariable(array(
-		array("id",$group['id'])
+		array("id",$department['id'])
 	));
 
 	$blueprint = array(
@@ -32,8 +32,8 @@
 			array(
 				"name" => "name",
 				"caption" => "Name",
-				"placeholder" => "Group Name",
-				"value" => $group['name']
+				"placeholder" => "Department Name",
+				"value" => $department['name']
 			)
 		)
 	);

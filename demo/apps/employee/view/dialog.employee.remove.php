@@ -26,8 +26,8 @@
 			if($removable){
 				echo '<ul>';
 				foreach($items as $item){
-					$customer = $dbc->GetRecord("bs_customers","*","id=".$item);
-					echo "<li>".$customer['id'].' : '.$customer['name']."</li>";
+					$employee = $dbc->GetRecord("bs_employees","*","id=".$item);
+					echo "<li>".$employee['id'].' : '.$employee['fullname']."</li>";
 				}
 				echo '</ul>';
 			}else{
@@ -38,10 +38,10 @@
 
 	$modal = new myModel($dbc,$os->auth);
 	$modal->setParam($_POST);
-	$modal->setModel("dialog_remove_customer","Remove Customer");
+	$modal->setModel("dialog_remove_employee","Remove Employee");
 	$modal->setButton(array(
 		array("close","btn-secondary","Dismiss"),
-		array("action","btn-danger","Remove","fn.app.customer.customer.remove()")
+		array("action","btn-danger","Remove","fn.app.employee.employee.remove()")
 	));
 	$modal->EchoInterface();
 

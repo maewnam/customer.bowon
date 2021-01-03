@@ -21,3 +21,10 @@
 		},"json");
 		return false;
 	};
+	$(".btn-area").append(fn.ui.button({
+		class_name : "btn btn-light has-icon",
+		icon_type : "material",
+		icon : "add_circle_outline",
+		onclick : "fn.app.supplier.supplier.dialog_add()",
+		caption : "Add"
+	}));

@@ -175,22 +175,15 @@
 				"icon" : "far fa-users",
 				"path" : "apps/supplier/index.php"
 			},{
-				"appname" : "user",
-				"name" : "User",
-				"icon_type" : "feather",
-				"icon" : "user-plus",
-				"path" : "apps/user/index.php"
-			},{
-				"appname" : "menu",
-				"name" : "Menu",
-				"icon_type" : "feather",
-				"icon" : "columns",
-				"path" : "apps/menu/index.php"
-			},{
 				"appname" : "bank",
 				"name" : "Bank",
 				"icon" : "far fa-newspaper",
 				"path" : "apps/bank/index.php"
+			},{
+				"appname" : "employee",
+				"name" : "Employee",
+				"icon" : "far fa-newspaper",
+				"path" : "apps/employee/index.php"
 			}
 		]
 	},{

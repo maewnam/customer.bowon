@@ -11,25 +11,27 @@
 	$dbc->Connect();
 	$os = new oceanos($dbc);
 
-	if($dbc->HasRecord("bs_suppliers","name = '".$_POST['name']."' AND id !=".$_POST['id'])){
+	if($dbc->HasRecord("bs_employees","fullname = '".$_POST['fullname']."' AND id !=".$_POST['id'])){
 		echo json_encode(array(
 			'success'=>false,
-			'msg'=>'Supplier Name is already exist.'
+			'msg'=>'Employee Name is already exist.'
 		));
 	}else{
 		$data = array(
-			'name' => $_POST['name'],
+			'fullname' => $_POST['fullname'],
 			'#updated' => 'NOW()',
-			'comment' => addslashes($_POST['comment']),
-			'#gid' => $_POST['gid']
+			'nickname' => $_POST['nickname'],
+			'dob' => $_POST['dob'],
+			'#user' => $_POST['user'],
+			'#department' => $_POST['department']
 		);
 
-		if($dbc->Update("bs_suppliers",$data,"id=".$_POST['id'])){
+		if($dbc->Update("bs_employees",$data,"id=".$_POST['id'])){
 			echo json_encode(array(
 				'success'=>true
 			));
-			$supplier = $dbc->GetRecord("bs_suppliers","*","id=".$_POST['id']);
-			$os->save_log(0,$_SESSION['auth']['user_id'],"supplier-edit",$_POST['id'],array("bs_suppliers" => $supplier));
+			$employee = $dbc->GetRecord("bs_employees","*","id=".$_POST['id']);
+			$os->save_log(0,$_SESSION['auth']['user_id'],"employee-edit",$_POST['id'],array("bs_employees" => $employee));
 		}else{
 			echo json_encode(array(
 				'success'=>false,

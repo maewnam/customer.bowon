@@ -1,11 +1,11 @@
-$("#tblCustomer").data( "selected", [] );
-$("#tblCustomer").DataTable({
+$("#tblEmployee").data( "selected", [] );
+$("#tblEmployee").DataTable({
 	responsive: true,
 	"bStateSave": true,
 	"autoWidth" : true,
 	"processing": true,
 	"serverSide": true,
-	"ajax": "apps/customer/store/store-customer.php",	
+	"ajax": "apps/employee/store/store-employee.php",	
 	"aoColumns": [
 		{"bSortable":false		,"data":"id"		,"sClass":"hidden-xs text-center",	"sWidth": "20px"  },
 		{"bSort":true			,"data":"name"	},
@@ -13,14 +13,14 @@ $("#tblCustomer").DataTable({
 	],"order": [[ 1, "desc" ]],
 	"createdRow": function ( row, data, index ) {
 		var selected = false,checked = "",s = '';
-		if ( $.inArray(data.DT_RowId, $("#tblCustomer").data( "selected")) !== -1 ) {
+		if ( $.inArray(data.DT_RowId, $("#tblEmployee").data( "selected")) !== -1 ) {
 			$(row).addClass("selected");
 			selected = true;
 		}
-		$("td", row).eq(0).html(fn.ui.checkbox("chk_customer",data[0],selected));
+		$("td", row).eq(0).html(fn.ui.checkbox("chk_employee",data[0],selected));
 		s = '';
-		s += fn.ui.button("btn btn-xs btn-outline-dark","far fa-pen","fn.app.customer.customer.dialog_edit("+data[0]+")");
+		s += fn.ui.button("btn btn-xs btn-outline-dark","far fa-pen","fn.app.employee.employee.dialog_edit("+data[0]+")");
 		$("td", row).eq(2).html(s);
 	}
 });
-fn.ui.datatable.selectable("#tblCustomer","chk_customer");
+fn.ui.datatable.selectable("#tblEmployee","chk_employee");
